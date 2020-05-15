@@ -1,8 +1,6 @@
-# Hello World example
+# MD
 
-This example shows the most basic idea behind Next. We have 2 pages: `pages/index.js` and `pages/about.js`. The former responds to `/` requests and the latter to `/about`. Using `next/link` you can add hyperlinks between them with universal routing capabilities. The `day` directory shows that you can have subdirectories.
-
-[transitions](http://react-flip-toolkit-demos.surge.sh/)
+Next.js project that demonstrates improved OTT app with SSR
 
 ## Deploy your own
 
@@ -12,33 +10,33 @@ Deploy the example using [Vercel](https://vercel.com):
 
 ## How to use
 
-### Using `create-next-app`
+### Setup
 
-Execute [`create-next-app`](https://github.com/zeit/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+- for local development pass following in [.env](.env)
 
 ```bash
-npm init next-app --example hello-world hello-world-app
-# or
-yarn create next-app --example hello-world hello-world-app
+MOVIEDB_API_URL="database endpoint"
+MOVIEDB_API_KEY="generated database key"
 ```
 
-### Download manually
+### Running and deployment
 
-Download the example:
-
-```bash
-curl https://codeload.github.com/zeit/next.js/tar.gz/canary | tar -xz --strip=2 next.js-canary/examples/hello-world
-cd hello-world
-```
-
-Install it and run:
+- Project uses `yarn`
+- to run locally
 
 ```bash
-npm install
-npm run dev
-# or
 yarn
 yarn dev
+```
+
+- project uses Vercel for deployment
+
+```bash
+# preview deployment
+now
+
+# production deployment
+now --prod
 ```
 
 Deploy it to the cloud with [Vercel](https://vercel.com/import?filter=next.js&utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
