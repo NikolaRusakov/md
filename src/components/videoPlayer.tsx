@@ -3,6 +3,7 @@ import { jsx } from '@emotion/core';
 import React, { useEffect, useRef } from 'react';
 // @ts-ignore
 import shaka from 'shaka-player/dist/shaka-player.ui.js';
+import {mq} from "../utils/theme";
 
 export interface VideoPlayerProps {
   src: string;
@@ -52,10 +53,10 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   return (
     <div
       className="video-container"
-      css={{
+      css={mq({
         width: '100vw',
         height: ['50vh', 'calc(100vh - 20px)', 'calc(100vh - 20px)'],
-      }}
+      })}
       ref={videoContainer}>
       <video
         css={{ width: '100%' }}
