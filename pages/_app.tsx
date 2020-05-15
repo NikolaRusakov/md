@@ -13,7 +13,6 @@ import { Provider } from 'react-redux';
 import { ThemeProvider } from 'emotion-theming';
 // @ts-ignore
 import tailwind from '@theme-ui/preset-tailwind';
-import { store } from '../src/redux/reducers/assets';
 // const MyApp: NextComponentType<AppContext, AppInitialProps, AppProps> = ({ Component, pageProps, ...etc }) => {
 //   const getLayout =
 //     // @ts-ignore
@@ -24,26 +23,23 @@ const TIMEOUT = 400;
 // FixMe Page transitions ??
 function MyApp({ Component, pageProps, router }: AppProps) {
   console.log(pageProps);
-  console.log(router);
   return (
-    <Provider store={store}>
-      <ThemeProvider theme={tailwind}>
-        <SiteLayout>
-          {/*<PageTransition*/}
-          {/*  timeout={TIMEOUT}*/}
-          {/*  classNames="page-transition"*/}
-          {/*  loadingComponent={<div>Loading</div>}*/}
-          {/*  loadingDelay={500}*/}
-          {/*  loadingTimeout={{*/}
-          {/*    enter: TIMEOUT,*/}
-          {/*    exit: 0,*/}
-          {/*  }}*/}
-          {/*  loadingClassNames="loading-indicator">*/}
-          <Component {...pageProps} />
-          {/*</PageTransition>*/}
-        </SiteLayout>
-      </ThemeProvider>
-    </Provider>
+    <ThemeProvider theme={tailwind}>
+      <SiteLayout>
+        {/*<PageTransition*/}
+        {/*  timeout={TIMEOUT}*/}
+        {/*  classNames="page-transition"*/}
+        {/*  loadingComponent={<div>Loading</div>}*/}
+        {/*  loadingDelay={500}*/}
+        {/*  loadingTimeout={{*/}
+        {/*    enter: TIMEOUT,*/}
+        {/*    exit: 0,*/}
+        {/*  }}*/}
+        {/*  loadingClassNames="loading-indicator">*/}
+        <Component {...pageProps} />
+        {/*</PageTransition>*/}
+      </SiteLayout>
+    </ThemeProvider>
   );
 }
 
