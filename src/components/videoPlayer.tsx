@@ -61,7 +61,6 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
         css={{ width: '100%' }}
         ref={videoComponent}
         poster={poster ?? '//shaka-player-demo.appspot.com/assets/poster.jpg'}
-        controls
         autoPlay={autoPlay ?? false}
       />
     </div>
