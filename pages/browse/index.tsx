@@ -38,7 +38,8 @@ function Browse(props: { carousels: { label: string; data: any }[] }) {
                     display: 'block',
                     paddingTop: '80%',
                   },
-                  marginRight: typeof window === 'undefined' ? '10px' : null,
+                  marginRight:  '10px' ,
+                  // marginRight: typeof window === 'undefined' ? '10px' : null,
                 })}>
                 <Link
                   href={{

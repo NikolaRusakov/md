@@ -1,5 +1,6 @@
 import 'swiper/css/swiper.css';
 import 'shaka-player/dist/controls.css';
+import 'react-virtualized/styles.css';
 
 import withRedux from 'next-redux-wrapper';
 import { NextComponentType } from 'next';
@@ -21,8 +22,9 @@ import { store } from '../src/redux/reducers/assets';
 // };
 const TIMEOUT = 400;
 // FixMe Page transitions ??
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps, router }: AppProps) {
   console.log(pageProps);
+  console.log(router);
   return (
     <Provider store={store}>
       <ThemeProvider theme={tailwind}>

@@ -29,7 +29,7 @@ export const Carousel: React.FC<Props> = ({ children }) => {
         }}
       />
       <div>
-        <Swiper getSwiper={setSwiper} slidesPerView={'auto'} spaceBetween={10}>
+        <Swiper getSwiper={setSwiper} slidesPerView={'auto'}>
           {/*// @ts-ignore*/}
           {children}
         </Swiper>
