@@ -4,17 +4,53 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "format": "prettier --write '**/*.tsx'"
   },
   "dependencies": {
     "@emotion/core": "10.0.28",
     "@emotion/styled": "10.0.27",
-    "next": "latest",
+    "@reduxjs/toolkit": "^1.3.6",
+    "@svgr/webpack": "^5.4.0",
+    "@theme-ui/preset-tailwind": "^0.3.0",
+    "@zeit/next-css": "^1.0.1",
+    "emotion-theming": "^10.0.27",
+    "facepaint": "^1.2.1",
+    "isomorphic-unfetch": "^3.0.0",
+    "next": "^9.4.0",
+    "next-compose-plugins": "^2.2.0",
+    "next-images": "^1.4.0",
+    "next-page-transitions": "^1.0.0-beta.2",
+    "next-redux-wrapper": "^6.0.0",
+    "normalizr": "^3.6.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-flip-toolkit": "7.0.9"
+    "react-id-swiper": "^3.0.0",
+    "redux-logger": "^3.0.6",
+    "redux-observable": "^1.2.0",
+    "shaka-player-react": "^1.0.1",
+    "swiper": "^5.3.8",
+    "swr": "^0.2.0"
   },
   "license": "ISC",
-  "keywords": [],
-  "description": ""
+  "keywords": [
+    "react",
+    "next.js",
+    "@reduxjs/toolkit",
+    "shaka-player"
+  ],
+  "description": "",
+  "devDependencies": {
+    "@testing-library/react": "^10.0.4",
+    "@types/facepaint": "^1.2.1",
+    "@types/next": "^9.0.0",
+    "@types/node": "^13.13.5",
+    "@types/react": "^16.9.35",
+    "@types/react-redux": "^7.1.8",
+    "@types/redux-logger": "^3.0.7",
+    "@types/swiper": "^5.3.0",
+    "prettier": "2.0.5",
+    "react-redux": "^7.2.0",
+    "typescript": "^3.8.3"
+  }
 }
