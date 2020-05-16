@@ -51,7 +51,6 @@ const SearchSection: React.FC = props => {
           Search
         </button>
       </div>
-      <div></div>
     </article>
   );
 };

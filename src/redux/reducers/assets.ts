@@ -101,11 +101,27 @@ export const wrapper = createWrapper<RootState>(makeStore, { debug: true });
 // @ts-ignore
 epicMiddleware.run(rootEpic);
 // Can create a set of memoized selectors based on the location of this entity state
-export const { selectById, selectAll, selectEntities } = assetsAdapter.getSelectors<RootState>(state => state.assets);
+export const {
+  selectById: selectAssetById,
+  selectAll: selectAssetAll,
+  selectEntities: selectAssetEntities,
+} = assetsAdapter.getSelectors<RootState>(state => state.assets);
+
+export const {
+  selectById: selectSearchAssetById,
+  selectAll: selectSearchAssetAll,
+  selectEntities: selectSearchAssetEntities,
+} = assetsAdapter.getSelectors<RootState>(state => state.searchAssets);
 
 // And then use the selectors to retrieve values
-export const allAssets = createSelector(selectAll, item => item);
+export const allAssets = createSelector(selectAssetAll, item => item);
+
+export const searchAssetEntityList = createSelector(selectSearchAssetEntities, state => Object.values(state));
+export const searchAssetByIndex = (index: number) =>
+  createSelector(selectSearchAssetEntities, state =>
+    index <= Object.keys(state).length ? Object.values(state)[index] : undefined,
+  );
 
 // TODO test if memoized ?
 export const assetById = ({ assetId }: { assetId?: number }) =>
-  createSelector(selectEntities, (assets): Asset | undefined => (assetId ? assets[assetId] : undefined));
+  createSelector(selectAssetEntities, (assets): Asset | undefined => (assetId ? assets[assetId] : undefined));
