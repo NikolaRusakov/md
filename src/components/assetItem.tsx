@@ -34,7 +34,7 @@ export const AssetItemSkeleton: React.FC<{ index: string }> = ({ index }) => (
   </div>
 );
 
-const AssetItem: React.FC<{ index: number; asset: Asset }> = ({ index, asset }) => (
+const AssetItem: React.FC<{ index: number; asset: Asset; cssStyles?: {} }> = ({ index, asset, cssStyles }) => (
   <Link
     href={{
       pathname: '/browse/detail/[id]',
@@ -49,14 +49,15 @@ const AssetItem: React.FC<{ index: number; asset: Asset }> = ({ index, asset }) 
       key={`${asset.title}-${index}`}
       css={mq({
         position: 'relative',
-        height: ['120px', '140px', '160px'],
-        width: ['80px', '100px', '120px'],
+        height: ['120px', '140px', '140px', '160px'],
+        width: ['80px', '100px','100px', '120px'],
         '&:before': {
           content: '""',
           display: 'block',
           paddingTop: '80%',
         },
         marginRight: '10px',
+        ...cssStyles,
         // marginRight: typeof window === 'undefined' ? '10px' : null,
       })}>
       <article>

@@ -1,14 +1,14 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import dynamic from 'next/dynamic';
-import { Global, css } from '@emotion/core';
+import { Global } from '@emotion/core';
 import { wrapper } from '../../../../../src/redux/assets';
 import { useSelector } from 'react-redux';
 import CloseIcon from '../../../../../static/svg/close.svg';
 import BackButton from '../../../../../src/components/backButton';
-import { assetTitleOrName } from '../../../../../utils';
+import { assetTitleOrName, globalNoOverflow } from '../../../../../utils';
 import { assetDetail } from '../../../../../src/redux/details';
 
 const VideoPlayer = dynamic(
@@ -16,18 +16,13 @@ const VideoPlayer = dynamic(
   () => import('../../../../../src/components/videoPlayer'),
   { ssr: false },
 );
-const globalStyles = css`
-  body {
-    overflow-y: hidden;
-  }
-`;
 
 const Index = () => {
   const asset = useSelector(assetDetail);
 
   return (
     <div>
-      <Global styles={globalStyles} />
+      <Global styles={globalNoOverflow} />
       <nav css={{ display: 'flex', justifyContent: 'space-between' }}>
         {asset && <h1>{assetTitleOrName(asset)}</h1>}
         <BackButton>

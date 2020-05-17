@@ -1,5 +1,6 @@
 import getConfig from 'next/config';
 import { Asset } from './src/redux/assets';
+import { css } from '@emotion/core';
 
 const { publicRuntimeConfig } = getConfig();
 export const composeQuery = (path: string = '', params?: string) => {
@@ -14,3 +15,10 @@ export const imageOrPlaceholder = (src: string | undefined) =>
 export const isImage = (src: string | null | undefined): src is string => src != null;
 
 export const assetTitleOrName = (asset: Asset) => (asset.title ? asset.title : asset.name ?? '');
+
+
+export const globalNoOverflow = css`
+         body {
+           overflow-y: hidden;
+         }
+       `;

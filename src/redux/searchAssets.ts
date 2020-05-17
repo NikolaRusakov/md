@@ -122,7 +122,7 @@ export const makeStore = (preloadedState: any) =>
     preloadedState,
     devTools: true,
     // @ts-ignore
-    middleware: [logger, epicMiddleware],
+    middleware: [/*logger,*/ epicMiddleware],
   });
 
 export const wrapper = createWrapper<RootState>(makeStore, { debug: true });

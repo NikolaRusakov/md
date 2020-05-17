@@ -117,17 +117,17 @@ export const epicMiddleware = createEpicMiddleware<SearchAssetsActions, SearchAs
 });
 
 export const makeStore = (preloadedState: any) =>
-  configureStore({
-    reducer: {
-      assets: assetsSlice.reducer,
-      searchAssets: searchAssetsSlice.reducer,
-      detailAsset: detailAssetSlice.reducer,
-    },
-    preloadedState,
-    devTools: true,
-    // @ts-ignore
-    middleware: [logger, epicMiddleware],
-  });
+         configureStore({
+           reducer: {
+             assets: assetsSlice.reducer,
+             searchAssets: searchAssetsSlice.reducer,
+             detailAsset: detailAssetSlice.reducer,
+           },
+           preloadedState,
+           devTools: true,
+           // @ts-ignore
+           middleware: [/*logger,*/ epicMiddleware],
+         });
 
 export const wrapper = createWrapper<RootState>(makeStore, { debug: true });
 

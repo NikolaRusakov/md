@@ -5,9 +5,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import InfiniteLoader from 'react-window-infinite-loader';
 import { FixedSizeList } from 'react-window';
+import { Global } from '@emotion/core';
 
 import SearchSection from '../../src/components/searchSection';
-import { assetTitleOrName } from '../../utils';
+import { assetTitleOrName, globalNoOverflow } from '../../utils';
 import {
   Asset,
   searchAssetExpression,
@@ -21,17 +22,6 @@ import AssetItem from '../../src/components/assetItem';
 import { mediaQueries, mq } from '../../src/utils/theme';
 import { useMedia } from 'react-use';
 
-const toId = (index: number) => index + 1;
-
-// if <2 return page 1, else on odd -1 to have same ID page
-const idByParity = (index: number) => (isEven: boolean) => {
-  if (index < 2) {
-    return index === 0 ? 1 : index;
-  } else {
-    return isEven ? index : index - 1;
-  }
-};
-
 const Index: React.FC = props => {
   const searchAssetEntities = useSelector(selectSearchAssetEntities);
   const pagination = useSelector(searchAssetPagination);
@@ -39,14 +29,6 @@ const Index: React.FC = props => {
   const dispatch = useDispatch();
   const pagedAssetsSlice = useSelector(searchAssetsRefsSelector);
   const isSm = useMedia(mediaQueries.sm);
-  const isMd = useMedia(mediaQueries.md);
-  const isLg = useMedia(mediaQueries.lg);
-
-  console.log({
-    isSm,
-    isMd,
-    isLg,
-  });
 
   let [listRef, setRef] = useState<FixedSizeList | null>(null);
   useEffect(() => {
@@ -57,13 +39,10 @@ const Index: React.FC = props => {
 
   // @ts-ignore
   const CellRenderer = ({ index, style }) => {
-    const isEven = index % 2 === 0;
-    const id = idByParity(index)(isEven);
-    // if even return 1. 1/2 if odd return 2. 1/2 of page range per list (page consists of 2 lists)
-    const onParityRange = isEven || index === 0 ? [0, 10] : [10, 20];
-    const assetsSlice: (Asset | undefined)[] = Object.keys(pagedAssetsSlice).includes(String(id))
-      ? pagedAssetsSlice[id].slice(...onParityRange).map(id => searchAssetEntities[id])
-      : new Array(10 /*todo responsive skeletons Omg...*/).fill(undefined);
+    const id = index + 1;
+    const assetsSlice: (Asset | undefined)[] | undefined = Object.keys(pagedAssetsSlice).includes(String(id))
+      ? pagedAssetsSlice[id].map(id => searchAssetEntities[id])
+      : undefined;
 
     return (
       <div
@@ -73,41 +52,62 @@ const Index: React.FC = props => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-evenly',
+          flexDirection: 'column',
         }}>
-        {assetsSlice &&
-          assetsSlice.map(
-            (assetItem, i) =>
-              assetItem && (
-                <AssetItem key={`searchAsset-${assetTitleOrName(assetItem)}-${i}`} index={i} asset={assetItem} />
-              ),
-            // : (
-            //   <AssetItemSkeleton index={`search-assets-page-${id}-${i}`} />
-            // ),
-          )}
+        {assetsSlice && (
+          <div css={{ display: 'flex', width: '100%', flexWrap: 'wrap', justifyContent: 'center' }}>
+            {assetsSlice
+              .slice(0, assetsSlice.length / 2) // Naive approach, if less than len. show content and fill with something else.
+              .map(
+                (assetItem, i) =>
+                  assetItem && (
+                    <AssetItem
+                      cssStyles={{ flex: ['0 0 31%', '0 0 16%', '0 0 16%', '0 0 8%'] }}
+                      key={`searchAsset-${assetTitleOrName(assetItem)}-${i}`}
+                      index={i}
+                      asset={assetItem}
+                    />
+                  ),
+              )}
+          </div>
+        )}
+        {/* Naive approach */}
+        {assetsSlice && assetsSlice.length > 10 && (
+          <div css={{ display: 'flex', width: '100%', flexWrap: 'wrap', justifyContent: 'center' }}>
+            {assetsSlice
+              .slice(10, assetsSlice.length + 1)
+              .map(
+                (assetItem, i) =>
+                  assetItem && (
+                    <AssetItem
+                      cssStyles={{ flex: ['0 0 31%', '0 0 16%', '0 0 16%', '0 0 8%'] }}
+                      key={`searchAsset-${assetTitleOrName(assetItem)}-${i}`}
+                      index={i}
+                      asset={assetItem}
+                    />
+                  ),
+              )}
+          </div>
+        )}
       </div>
     );
   };
 
   // @ts-ignore
   function isRowLoaded(index) {
-    const isEven = index % 2 === 0;
-    const id = idByParity(index)(isEven);
+    const id = index + 1;
     return pagination.pageLoads.includes(id);
   }
-  // @ts-ignore
-  async function loadMoreRows(startIndex, stopIndex) {
-    // 3rd page doesn't dispatches and render on search, investigate
-    console.log({ startIndex, stopIndex });
-    return await Promise.all([
-      dispatch(loadNextSearchAssets({ query: searchExp, page: startIndex })),
-      dispatch(loadNextSearchAssets({ query: searchExp, page: stopIndex })),
-    ]);
+
+  async function loadMoreRows(startIndex: number, stopIndex: number) {
+    return await dispatch(loadNextSearchAssets({ query: searchExp, page: stopIndex }));
   }
 
   return (
     <section css={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <SearchSection initialProps initialState />
-      <div css={{ width: '90vw', height: '80vh' }}>
+      <Global styles={globalNoOverflow} />
+      {isSm && <SearchSection initialProps initialState />}
+      <div css={mq({ width: '100vw', height: ['95vh', '85vh', '80vh', '80vh'], overflow: ['hidden', null, null] })}>
         <AutoSizer>
           {({ height, width }: { height: number; width: number }) => (
             <InfiniteLoader
@@ -121,13 +121,14 @@ const Index: React.FC = props => {
                   <FixedSizeList
                     itemCount={pagination.total_pages}
                     onItemsRendered={onItemsRendered}
-                    itemSize={height / 2}
-                    height={height}
+                    itemSize={!isSm ? height * 2 : height}
+                    height={!isSm ? height : height}
                     ref={e => {
                       setRef(e);
                       return ref;
                     }}
-                    width={width}>
+                    width={width}
+                    overscanCount={1}>
                     {CellRenderer}
                   </FixedSizeList>
                 );
