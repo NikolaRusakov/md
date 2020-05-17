@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/core';
 import { mq } from '../utils/theme';
 import { assetTitleOrName, imageOrPlaceholder, isImage } from '../../utils';
-import { Asset } from '../redux/reducers/assets';
+import { Asset } from '../redux/assets';
 import Link from 'next/link';
 
 export const AssetItemSkeleton: React.FC<{ index: string }> = ({ index }) => (

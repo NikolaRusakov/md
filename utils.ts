@@ -1,5 +1,5 @@
 import getConfig from 'next/config';
-import { Asset } from './src/redux/reducers/assets';
+import { Asset } from './src/redux/assets';
 
 const { publicRuntimeConfig } = getConfig();
 export const composeQuery = (path: string = '', params?: string) => {

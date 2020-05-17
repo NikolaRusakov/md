@@ -3,7 +3,7 @@ import { jsx } from '@emotion/core';
 import React from 'react';
 import { useRouter } from 'next/router';
 import { mq } from '../utils/theme';
-import { Asset } from '../redux/reducers/assets';
+import { Asset } from '../redux/assets';
 import Link from 'next/link';
 import VideoButton from './videoButton';
 import { assetTitleOrName, imageOrPlaceholder } from '../../utils';

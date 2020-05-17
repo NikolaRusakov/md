@@ -1,10 +1,9 @@
-import { GetServerSideProps } from 'next';
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
+import { GetServerSideProps } from 'next';
 
-import Router from 'next/router';
-import React, { useEffect, useState } from 'react';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import fetcher from '../../../../lib/fetcher';
@@ -12,22 +11,25 @@ import BackIcon from '../../../../static/svg/back.svg';
 import { composeQuery } from '../../../../utils';
 import AssetDetail from '../../../../src/components/assetDetail';
 
-import { assetsReceived, RootState, wrapper } from '../../../../src/redux/reducers/assets';
+import { RootState, wrapper } from '../../../../src/redux/assets';
 import BackButton from '../../../../src/components/backButton';
+import { setAssetDetail } from '../../../../src/redux/details';
 
 const mapStateToProps = (state: RootState) => state;
 
 const DetailPage: React.FC<{ initialData: any }> = props => {
   // fixme connect with client store and demonstrate skeleton loading on SSR?
   // const sel = useSelector(state => state);
-  // useEffect(() => {
-  //   console.log({ sel });
-  // }, []);
 
   const { query } = useRouter();
+  const dispatch = useDispatch();
   const { data, error } = useSWR(composeQuery(`${query.type}/${query.id}`), fetcher, {
     initialData: props.initialData,
   });
+  useEffect(() => {
+    data && dispatch(setAssetDetail(data));
+  }, [data]);
+
   return (
     <section>
       <BackButton>

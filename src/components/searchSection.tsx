@@ -5,9 +5,9 @@ import { useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 // import List from 'react-virtualized/dist/es/List';
 import { useDispatch } from 'react-redux';
-import { fetchAssetsByName } from '../redux/reducers/assets.action';
-import { epicMiddleware, wrapper } from '../redux/reducers/assets';
-import { rootEpic } from '../redux/reducers/epics';
+import { fetchAssetsByName } from '../redux/assets.action';
+import { epicMiddleware, wrapper } from '../redux/assets';
+import { rootEpic } from '../redux/epics';
 import { useEffectOnce } from 'react-use';
 
 // type Props = {};

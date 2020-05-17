@@ -4,7 +4,7 @@ import logger from 'redux-logger';
 import { createEpicMiddleware } from 'redux-observable';
 import { ajax } from 'rxjs/ajax';
 import { rootEpic } from './epics';
-import { ActionsUnion } from '../../../types';
+import { ActionsUnion } from '../../types';
 
 interface AssetPageRef {
   [key: number]: number[];
@@ -17,6 +17,7 @@ export type Pagination = {
   pageLoads: number[];
   assetIds?: number[];
 };
+
 export type Asset = {
   name?: string;
   tagline?: string;

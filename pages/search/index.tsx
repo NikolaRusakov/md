@@ -13,8 +13,8 @@ import {
   selectSearchAssetEntities,
   wrapper,
   searchAssetsRefsSelector,
-} from '../../src/redux/reducers/assets';
-import { loadNextSearchAssets } from '../../src/redux/reducers/assets.action';
+} from '../../src/redux/assets';
+import { loadNextSearchAssets } from '../../src/redux/assets.action';
 import AssetItem from '../../src/components/assetItem';
 
 const toId = (index: number) => index + 1;
@@ -33,7 +33,6 @@ const Index: React.FC = props => {
 
     // if even or zero, return 1. 1/2 if odd return 2. 1/2 of page range
     const onParityRange = index === 0 || index % 2 === 0 ? [0, 10] : [10, 20];
-    console.log(onParityRange);
     const assetsSlice: (Asset | undefined)[] = Object.keys(pagedAssetsSlice).includes(String(id))
       ? pagedAssetsSlice[id].slice(...onParityRange).map(id => searchAssetEntities[id])
       : new Array(10 /*todo responsive skeletons Omg...*/).fill(undefined);
@@ -66,6 +65,7 @@ const Index: React.FC = props => {
   }
   // @ts-ignore
   async function loadMoreRows({ startIndex, stopIndex }) {
+    // 3rd page doesn't dispatches and render on search, investigate
     return await dispatch(loadNextSearchAssets({ query: searchExp, page: stopIndex }));
   }
 
@@ -79,7 +79,7 @@ const Index: React.FC = props => {
               isRowLoaded={isRowLoaded}
               loadMoreRows={loadMoreRows}
               rowCount={pagination.total_pages}
-              threshold={1}
+              threshold={3}
               minimumBatchSize={1}>
               {({ onRowsRendered, registerChild }) => {
                 return (

@@ -6,7 +6,7 @@ import assetsAction, { testingLoaded } from './assets.action';
 import { RootState, Asset, requestedAssetsReceived, requestedNextPageFetched, searchAssetsManyAdded } from './assets';
 import { Action } from '@reduxjs/toolkit';
 
-import { composeQuery } from '../../../utils';
+import { composeQuery } from '../../utils';
 
 // @ts-ignore
 export const searchAssetsEpic: Epic<

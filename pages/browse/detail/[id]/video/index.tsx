@@ -4,12 +4,12 @@ import { jsx } from '@emotion/core';
 import React, { useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { Global, css } from '@emotion/core';
-import { assetsReceived, wrapper, assetById, allAssets } from '../../../../../src/redux/reducers/assets';
-import { useDispatch, useSelector } from 'react-redux';
-import { useRouter } from 'next/router';
+import { wrapper } from '../../../../../src/redux/assets';
+import { useSelector } from 'react-redux';
 import CloseIcon from '../../../../../static/svg/close.svg';
 import BackButton from '../../../../../src/components/backButton';
 import { assetTitleOrName } from '../../../../../utils';
+import { assetDetail } from '../../../../../src/redux/details';
 
 const VideoPlayer = dynamic(
   // @ts-ignore
@@ -23,9 +23,8 @@ const globalStyles = css`
 `;
 
 const Index = () => {
-  const { query } = useRouter();
-  const assetId = query.id ? +query.id : undefined;
-  const asset = useSelector(assetById({ assetId }));
+  const asset = useSelector(assetDetail);
+
   return (
     <div>
       <Global styles={globalStyles} />
