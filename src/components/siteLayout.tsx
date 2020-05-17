@@ -26,25 +26,29 @@ const SiteLayout: React.FC<Props> = props => {
               flex: 1,
             })}>
             <Link href="/browse">
-              <h1
-                css={theme => ({
-                  textDecoration: 'underline',
-                  textDecorationColor: theme.colors.primary,
-                  cursor: 'pointer',
-                })}>
-                Home
-              </h1>
-            </Link>
-            {!browseOrSearch.includes('search') && (
-              <Link href={{ pathname: '/search', query: {} }}>
+              <a>
                 <h1
                   css={theme => ({
                     textDecoration: 'underline',
-                    textDecorationColor: theme.colors.secondary,
+                    textDecorationColor: theme.colors.primary,
                     cursor: 'pointer',
                   })}>
-                  Search
+                  Home
                 </h1>
+              </a>
+            </Link>
+            {!browseOrSearch.includes('search') && (
+              <Link href={{ pathname: '/search', query: {} }}>
+                <a>
+                  <h1
+                    css={theme => ({
+                      textDecoration: 'underline',
+                      textDecorationColor: theme.colors.secondary,
+                      cursor: 'pointer',
+                    })}>
+                    Search
+                  </h1>
+                </a>
               </Link>
             )}
           </div>

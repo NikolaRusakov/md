@@ -8,7 +8,8 @@
     "env": {
       "MOVIEDB_API_URL": "@moviedb_api_url",
       "MOVIEDB_API_KEY": "@moviedb_api_key",
-      "MOVIEDB_API_KEY_PARAM": "@moviedb_api_key_param"
+      "MOVIEDB_API_KEY_PARAM": "@moviedb_api_key_param",
+      "SENTRY_DSN": "@sentry_dsn"
     }
   }
 }
