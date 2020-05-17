@@ -19,6 +19,15 @@ import AssetItem from '../../src/components/assetItem';
 
 const toId = (index: number) => index + 1;
 
+// if <2 return page 1, else on odd -1 to have same ID page
+const idByParity = (index: number) => (isEven: boolean) => {
+  if (index < 2) {
+    return index === 0 ? 1 : index;
+  } else {
+    return isEven ? index : index - 1;
+  }
+};
+
 const Index: React.FC = props => {
   const searchAssetEntities = useSelector(selectSearchAssetEntities);
   const pagination = useSelector(searchAssetPagination);
@@ -26,13 +35,16 @@ const Index: React.FC = props => {
   const dispatch = useDispatch();
   const pagedAssetsSlice = useSelector(searchAssetsRefsSelector);
   // fixme implement scroll to top on exp. change
-  useEffect(() => {}, [searchExp]);
+  useEffect(() => {
+    document?.getElementById('search-list')?.scrollTo(0, 0);
+  }, [searchExp]);
   // @ts-ignore
   const cellRenderer = ({ index, key, style }) => {
-    const id = toId(index === 0 ? 0 : index - 1);
+    const isEven = index % 2 === 0;
 
-    // if even or zero, return 1. 1/2 if odd return 2. 1/2 of page range
-    const onParityRange = index === 0 || index % 2 === 0 ? [0, 10] : [10, 20];
+    const id = idByParity(index)(isEven);
+    // if even return 1. 1/2 if odd return 2. 1/2 of page range per list (page consists of 2 lists)
+    const onParityRange = isEven || index === 0 ? [0, 10] : [10, 20];
     const assetsSlice: (Asset | undefined)[] = Object.keys(pagedAssetsSlice).includes(String(id))
       ? pagedAssetsSlice[id].slice(...onParityRange).map(id => searchAssetEntities[id])
       : new Array(10 /*todo responsive skeletons Omg...*/).fill(undefined);
@@ -61,7 +73,9 @@ const Index: React.FC = props => {
 
   // @ts-ignore
   function isRowLoaded({ index }) {
-    return pagination.pageLoads.includes(toId(index));
+    const isEven = index % 2 === 0;
+    const id = idByParity(index)(isEven);
+    return pagination.pageLoads.includes(id);
   }
   // @ts-ignore
   async function loadMoreRows({ startIndex, stopIndex }) {
@@ -80,22 +94,22 @@ const Index: React.FC = props => {
               loadMoreRows={loadMoreRows}
               rowCount={pagination.total_pages}
               threshold={1}
-              minimumBatchSize={1}>
-              {({ onRowsRendered, registerChild }) => {
-                return (
-                  <List
-                    width={width}
-                    onRowsRendered={onRowsRendered}
-                    ref={registerChild}
-                    height={height}
-                    rowCount={pagination.total_pages}
-                    rowHeight={height / 2}
-                    rowRenderer={cellRenderer}
-                    overscanRowCount={1}
-                    forceUpdateGrid={pagination.total_pages}
-                  />
-                );
-              }}
+              minimumBatchSize={1}
+              resetLoadMoreRowsCache={true}>
+              {({ onRowsRendered, registerChild }) => (
+                <List
+                  id={'search-list'}
+                  width={width}
+                  onRowsRendered={onRowsRendered}
+                  ref={registerChild}
+                  height={height}
+                  rowCount={pagination.total_pages}
+                  rowHeight={height / 2}
+                  rowRenderer={cellRenderer}
+                  overscanRowCount={2}
+                  forceUpdateGrid={pagination.total_pages}
+                />
+              )}
             </InfiniteLoader>
           )}
         </AutoSizer>
