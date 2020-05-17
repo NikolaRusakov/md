@@ -79,7 +79,7 @@ const Index: React.FC = props => {
               isRowLoaded={isRowLoaded}
               loadMoreRows={loadMoreRows}
               rowCount={pagination.total_pages}
-              threshold={3}
+              threshold={1}
               minimumBatchSize={1}>
               {({ onRowsRendered, registerChild }) => {
                 return (
