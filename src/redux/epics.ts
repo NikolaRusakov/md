@@ -51,7 +51,6 @@ export const loadMoreSearchAssetsEpic: Epic<
       ).pipe(
         concatMap(anything => {
           const { results, ...pagination } = anything;
-          console.log(pagination);
           return of(
             searchAssetsManyAdded(results),
             requestedNextPageFetched({
@@ -60,10 +59,6 @@ export const loadMoreSearchAssetsEpic: Epic<
               ...(results.length > 0 && { assetIds: results.map(({ id }) => id) }),
             }),
           );
-          // return of(
-          //   requestedNextPageFetched({ ...pagination, pageLoads: [anything.page] }),
-          //   requestedAssetsReceived(results || []),
-          // );
         }),
       ),
     ),
