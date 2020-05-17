@@ -1,78 +1,73 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import React from 'react';
-import SearchSection from '../../src/components/searchSection';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { AutoSizer, List, InfiniteLoader } from 'react-virtualized';
 
-import { Collection, AutoSizer } from 'react-virtualized';
-import { useSelector } from 'react-redux';
-import { mq } from '../../src/utils/theme';
-import { assetTitleOrName, imageOrPlaceholder, isImage } from '../../utils';
-import Link from 'next/link';
+import SearchSection from '../../src/components/searchSection';
+import { assetTitleOrName } from '../../utils';
 import {
   Asset,
-  searchAssetByIndex,
-  searchAssetEntityList,
+  searchAssetExpression,
+  searchAssetPagination,
   selectSearchAssetEntities,
   wrapper,
+  searchAssetsRefsSelector,
 } from '../../src/redux/reducers/assets';
+import { loadNextSearchAssets } from '../../src/redux/reducers/assets.action';
+import AssetItem from '../../src/components/assetItem';
 
-const AssetItem: React.FC<{ index: number; asset: Asset }> = ({ index, asset }) => (
-  <div
-    key={`${asset.title}-${index}`}
-    css={mq({
-      position: 'relative',
-      height: ['120px', '140px', '160px'],
-      width: ['80px', '100px', '120px'],
-      '&:before': {
-        content: '""',
-        display: 'block',
-        paddingTop: '80%',
-      },
-      marginRight: '10px',
-      // marginRight: typeof window === 'undefined' ? '10px' : null,
-    })}>
-    <Link
-      href={{
-        pathname: '/browse/detail/[id]',
-        query: { type: asset?.media_type === 'movie' ? 'movie' : 'tv' },
-      }}
-      as={{
-        pathname: `/browse/detail/${asset.id}`,
-        query: { type: asset?.media_type === 'movie' ? 'movie' : 'tv' },
-      }}>
-      <img
-        css={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          height: '100%',
-          width: '100%',
-          cursor: 'pointer',
-        }}
-        src={imageOrPlaceholder(asset.poster_path)}
-      />
-    </Link>
-    {!isImage(asset.poster_path) && (
-      <span css={theme => ({ position: 'absolute', top: 0, fontSize: theme.fontSizes[4] })}>
-        {assetTitleOrName(asset)}
-      </span>
-    )}
-  </div>
-);
+const toId = (index: number) => index + 1;
+
 const Index: React.FC = props => {
-  const searchAssetItems = useSelector(searchAssetEntityList);
-
+  const searchAssetEntities = useSelector(selectSearchAssetEntities);
+  const pagination = useSelector(searchAssetPagination);
+  const searchExp = useSelector(searchAssetExpression);
+  const dispatch = useDispatch();
+  const pagedAssetsSlice = useSelector(searchAssetsRefsSelector);
+  // fixme implement scroll to top on exp. change
+  useEffect(() => {}, [searchExp]);
   // @ts-ignore
   const cellRenderer = ({ index, key, style }) => {
-    const assetItem: Asset | undefined = Object.keys(searchAssetItems).length
-      ? Object.values(searchAssetItems)[index]
-      : undefined;
+    const id = toId(index === 0 ? 0 : index - 1);
+
+    // if even or zero, return 1. 1/2 if odd return 2. 1/2 of page range
+    const onParityRange = index === 0 || index % 2 === 0 ? [0, 10] : [10, 20];
+    console.log(onParityRange);
+    const assetsSlice: (Asset | undefined)[] = Object.keys(pagedAssetsSlice).includes(String(id))
+      ? pagedAssetsSlice[id].slice(...onParityRange).map(id => searchAssetEntities[id])
+      : new Array(10 /*todo responsive skeletons Omg...*/).fill(undefined);
     return (
-      <div key={key} style={style}>
-        {assetItem && <AssetItem index={index} asset={assetItem} />}
+      <div
+        key={key}
+        style={style}
+        css={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-evenly',
+        }}>
+        {assetsSlice &&
+          assetsSlice.map(
+            (assetItem, i) =>
+              assetItem && (
+                <AssetItem key={`searchAsset-${assetTitleOrName(assetItem)}-${i}`} index={i} asset={assetItem} />
+              ),
+            // : (
+            //   <AssetItemSkeleton index={`search-assets-page-${id}-${i}`} />
+            // ),
+          )}
       </div>
     );
   };
+
+  // @ts-ignore
+  function isRowLoaded({ index }) {
+    return pagination.pageLoads.includes(toId(index));
+  }
+  // @ts-ignore
+  async function loadMoreRows({ startIndex, stopIndex }) {
+    return await dispatch(loadNextSearchAssets({ query: searchExp, page: stopIndex }));
+  }
 
   return (
     <section css={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -80,13 +75,28 @@ const Index: React.FC = props => {
       <div css={{ width: '90vw', height: '80vh' }}>
         <AutoSizer>
           {({ height, width }) => (
-            <Collection
-              cellCount={10}
-              cellRenderer={cellRenderer}
-              cellSizeAndPositionGetter={({ index, isScrolling }) => ({ height: 120, width: 140, x: 0, y: 100 })}
-              height={height}
-              width={width}
-            />
+            <InfiniteLoader
+              isRowLoaded={isRowLoaded}
+              loadMoreRows={loadMoreRows}
+              rowCount={pagination.total_pages}
+              threshold={1}
+              minimumBatchSize={1}>
+              {({ onRowsRendered, registerChild }) => {
+                return (
+                  <List
+                    width={width}
+                    onRowsRendered={onRowsRendered}
+                    ref={registerChild}
+                    height={height}
+                    rowCount={pagination.total_pages}
+                    rowHeight={height / 2}
+                    rowRenderer={cellRenderer}
+                    overscanRowCount={1}
+                    forceUpdateGrid={pagination.total_pages}
+                  />
+                );
+              }}
+            </InfiniteLoader>
           )}
         </AutoSizer>
       </div>

@@ -5,4 +5,11 @@ import { createAction } from '@reduxjs/toolkit';
 
 export const fetchAssetsByName = createAction('searchAssets/fetchAssets', (exp: string) => ({ payload: exp }));
 
-export default { fetchAssetsByName };
+export const testingLoaded = createAction('searchAssets/testingLoaded');
+
+export const loadNextSearchAssets = createAction(
+  'searchAssets/loadNextSearchAssets',
+  (payload: { query: string; page: number }) => ({ payload }),
+);
+
+export default { fetchAssetsByName, loadNextSearchAssets };

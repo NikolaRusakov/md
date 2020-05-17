@@ -10,7 +10,8 @@ import fetcher from '../../lib/fetcher';
 import { mq } from '../../src/utils/theme';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { wrapper, assetAdded, assetsReceived } from '../../src/redux/reducers/assets';
+import { wrapper, assetAdded, assetsReceived, Asset } from '../../src/redux/reducers/assets';
+import AssetItem from '../../src/components/assetItem';
 
 function Browse(props: { carousels: { label: string; data: any }[] }) {
   // fixme doesn't hydrate store from SSR on Client
@@ -26,48 +27,8 @@ function Browse(props: { carousels: { label: string; data: any }[] }) {
           <h1>{label}</h1>
           <Carousel>
             {/*// @ts-ignore*/}
-            {data.results.map((results, index) => (
-              <div
-                key={`${results.title}-${index}`}
-                css={mq({
-                  position: 'relative',
-                  height: ['120px', '140px', '160px'],
-                  width: ['80px', '100px', '120px'],
-                  '&:before': {
-                    content: '""',
-                    display: 'block',
-                    paddingTop: '80%',
-                  },
-                  marginRight:  '10px' ,
-                  // marginRight: typeof window === 'undefined' ? '10px' : null,
-                })}>
-                <Link
-                  href={{
-                    pathname: '/browse/detail/[id]',
-                    query: { type: results?.media_type === 'movie' ? 'movie' : 'tv' },
-                  }}
-                  as={{
-                    pathname: `/browse/detail/${results.id}`,
-                    query: { type: results?.media_type === 'movie' ? 'movie' : 'tv' },
-                  }}>
-                  <img
-                    css={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      height: '100%',
-                      width: '100%',
-                      cursor: 'pointer',
-                    }}
-                    src={imageOrPlaceholder(results.poster_path)}
-                  />
-                </Link>
-                {!isImage(results.poster_path) && (
-                  <span css={theme => ({ position: 'absolute', top: 0, fontSize: theme.fontSizes[4] })}>
-                    {assetTitleOrName(results)}
-                  </span>
-                )}
-              </div>
+            {data.results.map<Asset>((results, index) => (
+              <AssetItem key={`browse-${label}-${results.title}-${index}`} asset={results} index={index} />
             ))}
           </Carousel>
         </section>

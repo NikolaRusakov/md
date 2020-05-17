@@ -6,17 +6,20 @@ import { ajax } from 'rxjs/ajax';
 import { rootEpic } from './epics';
 import { ActionsUnion } from '../../../types';
 
-export type Asset = {
-  // id: number;
-  // title?: string;
-  name?: string;
-  // overview: string;
-  // release_date: string;
-  // vote_average: number;
-  tagline?: string;
-  // popularity: number;
-  // poster_path?: string;
+interface AssetPageRef {
+  [key: number]: number[];
+}
 
+export type Pagination = {
+  page: number;
+  total_pages: number;
+  total_results: number;
+  pageLoads: number[];
+  assetIds?: number[];
+};
+export type Asset = {
+  name?: string;
+  tagline?: string;
   backdrop_path?: string;
   genre_ids?: number[];
   id: number;
@@ -42,14 +45,35 @@ const assetsAdapter = createEntityAdapter<Asset>({
 
 const searchAssetsSlice = createSlice({
   name: 'searchAssets',
-  initialState: assetsAdapter.getInitialState<{ exp: any }>({ exp: '' }),
+  initialState: assetsAdapter.getInitialState<Pagination & { exp: string } & { assetPageRefs: AssetPageRef }>({
+    exp: '',
+    page: 0,
+    total_pages: 0,
+    total_results: 0,
+    pageLoads: [],
+    assetPageRefs: {},
+  }),
   reducers: {
-    // fetchAssetsByName
-    fetchAssets: (state, exp) => {
-      return { ...state, exp: exp.payload };
+    fetchAssets: (state, { payload: exp }: { payload: string }) => {
+      return { ...state, exp };
+    },
+    requestedNextPageFetched: (state, { payload }: { payload: Pagination }) => {
+      const { assetIds, pageLoads, ...rest } = payload;
+      state = { ...state, ...rest };
+      state.pageLoads = [...state.pageLoads, ...payload.pageLoads];
+      state.assetPageRefs = {
+        ...state.assetPageRefs,
+        ...(payload.assetIds && {
+          [payload.page]: payload.assetIds,
+        }),
+      };
+      return state;
     },
     requestedAssetAdded: assetsAdapter.addOne,
+    searchAssetsManyAdded: assetsAdapter.upsertMany,
     requestedAssetsReceived: (state, action) => {
+      state.pageLoads = [];
+      state.assetPageRefs = {};
       assetsAdapter.setAll(state, action.payload);
     },
   },
@@ -67,8 +91,12 @@ const assetsSlice = createSlice({
 });
 
 export const { assetAdded, assetsReceived } = assetsSlice.actions;
-export const { requestedAssetAdded, requestedAssetsReceived } = searchAssetsSlice.actions;
-
+export const {
+  requestedAssetAdded,
+  requestedAssetsReceived,
+  requestedNextPageFetched,
+  searchAssetsManyAdded,
+} = searchAssetsSlice.actions;
 const rootReducer = combineReducers({
   assets: assetsSlice.reducer,
   searchAssets: searchAssetsSlice.reducer,
@@ -117,6 +145,27 @@ export const {
 export const allAssets = createSelector(selectAssetAll, item => item);
 
 export const searchAssetEntityList = createSelector(selectSearchAssetEntities, state => Object.values(state));
+
+export const searchAssetsSelector = (state: RootState) => state.searchAssets;
+export const searchAssetsRefsSelector = (state: RootState) => state.searchAssets.assetPageRefs;
+
+export const searchAssetExpression = createSelector(searchAssetsSelector, state => state.exp);
+
+export const searchAssetPagination = createSelector(
+  searchAssetsSelector,
+  ({ pageLoads, page, total_pages, total_results }) => ({
+    page,
+    total_pages,
+    total_results,
+    pageLoads,
+  }),
+);
+
+export const searchAssetsPagedEntities = (page: number) =>
+  createSelector(searchAssetsSelector, selectSearchAssetEntities, ({ assetPageRefs }, entities) =>
+    assetPageRefs[page].map(id => entities[id]),
+  );
+
 export const searchAssetByIndex = (index: number) =>
   createSelector(selectSearchAssetEntities, state =>
     index <= Object.keys(state).length ? Object.values(state)[index] : undefined,
