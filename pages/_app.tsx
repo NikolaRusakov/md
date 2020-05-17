@@ -32,7 +32,6 @@ Sentry.init({
 const TIMEOUT = 400;
 // FixMe Page transitions ??
 function MyApp({ Component, pageProps, router }: AppProps) {
-  console.log(pageProps);
   try {
     return (
       <ThemeProvider theme={tailwind}>

@@ -107,7 +107,7 @@ const moviesAsProps = async () => {
 };
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(
   async ({ store, req, res, ...etc }) => {
-    console.log('2. getServerSideProps uses the store to dispatch things');
+    // console.log('2. getServerSideProps uses the store to dispatch things');
     const trendingMovies = await fetcher(composeQuery(`trending/movies/week`));
     const moviesResults = await trendingMovies.results;
     store.dispatch(assetAdded(moviesResults[0]));

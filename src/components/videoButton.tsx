@@ -9,9 +9,10 @@ const VideoButton = React.forwardRef(({ onClick, href }, ref) => {
     <button
       css={theme =>
         mq({
-          width: '96px',
-          height: [24, 28, 36],
-          border: `1px solid ${theme.colors.primary}`,
+          width: theme.sizes['1/2'],
+          background: theme.colors.indigo[7],
+          height: ['1/6', '1/6', '1/5'],
+          border: `${theme.borderWidths[2]} solid ${theme.colors.primary}`,
         })
       }
       href={href}
@@ -19,15 +20,19 @@ const VideoButton = React.forwardRef(({ onClick, href }, ref) => {
       // @ts-ignore
       ref={ref}>
       <div
-        css={{
+        css={theme => ({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           maxHeight: '100%',
-        }}>
-        {/*// @ts-ignore*/}
-        <PlayIcon height="24" />
-        <span>Play</span>
+          color: theme.colors.gray[2],
+          padding: theme.sizes[2],
+        })}>
+        <div css={{ marginRight: '0.5rem' }}>
+          {/*// @ts-ignore*/}
+          <PlayIcon height="24" />
+        </div>
+        <span css={theme => ({ fontSize: theme.fontSizes[4] })}>Play</span>
       </div>
     </button>
   );

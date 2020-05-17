@@ -39,7 +39,7 @@ const DetailPage: React.FC<{ initialData: any }> = props => {
             viewBox="0 0 24 24"
             width={48}
             height={48}
-            css={{ width: '48px', height: '48px', border: 'none' }}
+            css={{ width: '48px', height: '48px', border: 'none', background: 'transparent', fill: 'none' }}
           />
         }
       </BackButton>
