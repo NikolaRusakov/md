@@ -15,11 +15,8 @@ import { RootState, wrapper } from '../../../../src/redux/assets';
 import BackButton from '../../../../src/components/backButton';
 import { setAssetDetail } from '../../../../src/redux/details';
 
-const mapStateToProps = (state: RootState) => state;
-
 const DetailPage: React.FC<{ initialData: any }> = props => {
   // fixme connect with client store and demonstrate skeleton loading on SSR?
-  // const sel = useSelector(state => state);
 
   const { query } = useRouter();
   const dispatch = useDispatch();

@@ -11,7 +11,7 @@ import { mq } from '../../src/utils/theme';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { assetAdded, assetsReceived, wrapper } from '../../src/redux/assets';
-import {Asset} from "../../types";
+import { Asset } from '../../types';
 
 function Browse(props: { carousels: { label: string; data: any }[] }) {
   const dispatch = useDispatch();
@@ -105,14 +105,12 @@ const moviesAsProps = async () => {
     },
   };
 };
-export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(
-  async ({ store, req, res, ...etc }) => {
-    // console.log('2. getServerSideProps uses the store to dispatch things');
-    const trendingMovies = await fetcher(composeQuery(`trending/movies/week`));
-    const moviesResults = await trendingMovies.results;
-    store.dispatch(assetAdded(moviesResults[0]));
-    return moviesAsProps();
-  },
-);
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(async ({ store, req, res }) => {
+  // console.log('2. getServerSideProps uses the store to dispatch things');
+  const trendingMovies = await fetcher(composeQuery(`trending/movies/week`));
+  const moviesResults = await trendingMovies.results;
+  store.dispatch(assetAdded(moviesResults[0]));
+  return moviesAsProps();
+});
 
 export default wrapper.withRedux(Browse);

@@ -3,26 +3,15 @@ import 'shaka-player/dist/controls.css';
 import 'react-virtualized/styles.css';
 import 'array-flat-polyfill';
 
-import withRedux from 'next-redux-wrapper';
-import { NextComponentType } from 'next';
-import App, { AppContext, AppInitialProps, AppProps } from 'next/app';
+import { AppProps } from 'next/app';
 import React from 'react';
 import SiteLayout from '../src/components/siteLayout';
-// @ts-ignore
-import { PageTransition } from 'next-page-transitions';
-import { Provider } from 'react-redux';
 import * as Sentry from '@sentry/browser';
 import { ThemeProvider } from 'emotion-theming';
 // @ts-ignore
 import tailwind from '@theme-ui/preset-tailwind';
-// const MyApp: NextComponentType<AppContext, AppInitialProps, AppProps> = ({ Component, pageProps, ...etc }) => {
-//   const getLayout =
-//     // @ts-ignore
-//     Component.getLayout || ((page: React.ReactNode) => <SiteLayout children={page} />);
-//   return getLayout(<Component {...pageProps} />);
-// };
-
 import getConfig from 'next/config';
+
 const { publicRuntimeConfig } = getConfig();
 
 Sentry.init({
@@ -31,23 +20,12 @@ Sentry.init({
 
 const TIMEOUT = 400;
 // FixMe Page transitions ??
-function MyApp({ Component, pageProps, router }: AppProps) {
+function MyApp({ Component, pageProps }: AppProps) {
   try {
     return (
       <ThemeProvider theme={tailwind}>
         <SiteLayout>
-          {/*<PageTransition*/}
-          {/*  timeout={TIMEOUT}*/}
-          {/*  classNames="page-transition"*/}
-          {/*  loadingComponent={<div>Loading</div>}*/}
-          {/*  loadingDelay={500}*/}
-          {/*  loadingTimeout={{*/}
-          {/*    enter: TIMEOUT,*/}
-          {/*    exit: 0,*/}
-          {/*  }}*/}
-          {/*  loadingClassNames="loading-indicator">*/}
           <Component {...pageProps} />
-          {/*</PageTransition>*/}
         </SiteLayout>
       </ThemeProvider>
     );
