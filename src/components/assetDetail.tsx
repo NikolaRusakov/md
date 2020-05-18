@@ -75,7 +75,7 @@ const AssetDetail: React.FC<Asset> = props => {
               flex={0.25}
               px={[2, 2, 2]}
               alignItems="center"
-              flexDirection={['column', 'column', 'row']}
+              flexDirection={['column', 'column', 'column', 'row']}
               justifyContent="space-evenly"
               display="flex">
               <span>Rating</span>
@@ -93,7 +93,7 @@ const AssetDetail: React.FC<Asset> = props => {
                 height={48}
                 css={theme => ({ width: '28px', height: '28px', border: 'none', stroke: theme.colors.blue[9] })}
               />
-              <span> {dayjs(props.release_date).format('MMMM M , YYYY')}</span>
+              <span css={{ textAlign: 'center' }}> {dayjs(props.release_date).format('MMMM M , YYYY')}</span>
             </Span>
           )}
         </Flex>
