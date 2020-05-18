@@ -14,6 +14,7 @@ const SiteLayout: React.FC<Props> = props => {
   const endsWith = (arg: string[]): string[] => arg.filter(routeEnd => router.pathname.endsWith(routeEnd));
   const isSm = useMedia(mediaQueries.sm);
   const browseOrSearch = endsWith(['browse', 'search']);
+
   return (
     <div>
       {/* fixme Staged for page-aware header */}

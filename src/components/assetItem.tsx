@@ -2,8 +2,8 @@
 import { jsx } from '@emotion/core';
 import { mq } from '../utils/theme';
 import { assetTitleOrName, imageOrPlaceholder, isImage } from '../../utils';
-import { Asset } from '../redux/assets';
 import Link from 'next/link';
+import { Asset } from '../../types';
 
 export const AssetItemSkeleton: React.FC<{ index: string }> = ({ index }) => (
   <div
@@ -18,7 +18,6 @@ export const AssetItemSkeleton: React.FC<{ index: string }> = ({ index }) => (
         paddingTop: '80%',
       },
       marginRight: '10px',
-      // marginRight: typeof window === 'undefined' ? '10px' : null,
     })}>
     <img
       css={{
@@ -50,7 +49,7 @@ const AssetItem: React.FC<{ index: number; asset: Asset; cssStyles?: {} }> = ({ 
       css={mq({
         position: 'relative',
         height: ['120px', '140px', '140px', '160px'],
-        width: ['80px', '100px','100px', '120px'],
+        width: ['80px', '100px', '100px', '120px'],
         '&:before': {
           content: '""',
           display: 'block',
@@ -58,7 +57,6 @@ const AssetItem: React.FC<{ index: number; asset: Asset; cssStyles?: {} }> = ({ 
         },
         marginRight: '10px',
         ...cssStyles,
-        // marginRight: typeof window === 'undefined' ? '10px' : null,
       })}>
       <article>
         <img

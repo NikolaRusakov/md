@@ -10,8 +10,6 @@ import { rootEpic } from '../redux/epics';
 import { useEffectOnce } from 'react-use';
 import { mq } from '../utils/theme';
 
-// type Props = {};
-
 const SearchSection: React.FC = props => {
   const inputRef = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();

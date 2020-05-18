@@ -10,7 +10,6 @@ import { Global } from '@emotion/core';
 import SearchSection from '../../src/components/searchSection';
 import { assetTitleOrName, globalNoOverflow } from '../../utils';
 import {
-  Asset,
   searchAssetExpression,
   searchAssetPagination,
   selectSearchAssetEntities,
@@ -21,6 +20,7 @@ import { loadNextSearchAssets } from '../../src/redux/assets.action';
 import AssetItem from '../../src/components/assetItem';
 import { mediaQueries, mq } from '../../src/utils/theme';
 import { useMedia } from 'react-use';
+import {Asset} from "../../types";
 
 const Index: React.FC = props => {
   const searchAssetEntities = useSelector(selectSearchAssetEntities);

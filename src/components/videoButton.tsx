@@ -3,6 +3,7 @@ import { jsx } from '@emotion/core';
 import React from 'react';
 import { mq } from '../utils/theme';
 import PlayIcon from '../../static/svg/play.svg';
+// fixme type me
 // @ts-ignore
 const VideoButton = React.forwardRef(({ onClick, href }, ref) => {
   return (

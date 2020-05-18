@@ -1,12 +1,13 @@
-import { combineEpics, ofType, Epic, ActionsObservable } from 'redux-observable';
-import { Observable, from, of } from 'rxjs';
-import { map, switchMap, tap, concatMap } from 'rxjs/operators';
+import { ActionsObservable, combineEpics, Epic, ofType } from 'redux-observable';
+import { Observable, of } from 'rxjs';
+import { concatMap, switchMap } from 'rxjs/operators';
 
-import assetsAction, { testingLoaded } from './assets.action';
-import { RootState, Asset, requestedAssetsReceived, requestedNextPageFetched, searchAssetsManyAdded } from './assets';
+import assetsAction from './assets.action';
+import { requestedAssetsReceived, requestedNextPageFetched, RootState, searchAssetsManyAdded } from './assets';
 import { Action } from '@reduxjs/toolkit';
 
 import { composeQuery } from '../../utils';
+import { Asset } from '../../types';
 
 // @ts-ignore
 export const searchAssetsEpic: Epic<

@@ -1,44 +1,11 @@
-import { createEntityAdapter, combineReducers, createSlice, configureStore, createSelector } from '@reduxjs/toolkit';
-import { createWrapper } from 'next-redux-wrapper';
-import logger from 'redux-logger';
-import { createEpicMiddleware } from 'redux-observable';
-import { ajax } from 'rxjs/ajax';
-import { rootEpic } from './epics';
-import { ActionsUnion } from '../../types';
-import { detailAssetSlice } from './details';
+import {combineReducers, configureStore, createEntityAdapter, createSelector, createSlice} from '@reduxjs/toolkit';
+import {createWrapper} from 'next-redux-wrapper';
+import {createEpicMiddleware} from 'redux-observable';
+import {ajax} from 'rxjs/ajax';
+import {rootEpic} from './epics';
+import {ActionsUnion, Asset, AssetPageRef, Pagination} from '../../types';
+import {detailAssetSlice} from './details';
 
-interface AssetPageRef {
-  [key: number]: number[];
-}
-
-export type Pagination = {
-  page: number;
-  total_pages: number;
-  total_results: number;
-  pageLoads: number[];
-  assetIds?: number[];
-};
-
-export type Asset = {
-  name?: string;
-  tagline?: string;
-  backdrop_path?: string;
-  genre_ids?: number[];
-  id: number;
-  media_type?: string;
-  original_language?: string;
-  original_title?: string;
-  overview?: string;
-  popularity?: number;
-  poster_path?: string;
-  release_date?: string;
-  title?: string;
-  video?: boolean;
-  vote_average: number;
-  vote_count?: number;
-  genres?: { id: number; name: string }[];
-  type?: string;
-};
 
 const assetsAdapter = createEntityAdapter<Asset>({
   // Assume IDs are stored in a field other than `asset.id`

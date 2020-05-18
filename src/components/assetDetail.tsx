@@ -3,17 +3,16 @@ import { jsx } from '@emotion/core';
 import React from 'react';
 import { useRouter } from 'next/router';
 import { mq } from '../utils/theme';
-import { Asset } from '../redux/assets';
 import Link from 'next/link';
 import VideoButton from './videoButton';
 import { assetTitleOrName, imageOrPlaceholder } from '../../utils';
 import { Badge, Flex, TopBadge, Span, Pill } from './styled';
 import dayjs from 'dayjs';
 import CalendarIcon from '../../static/svg/calendar.svg';
+import { Asset } from '../../types';
 
 const AssetDetail: React.FC<Asset> = props => {
   const router = useRouter();
-  // @ts-ignore
   return (
     <div
       css={mq({

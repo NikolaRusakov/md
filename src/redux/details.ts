@@ -1,5 +1,6 @@
-import { Asset, Pagination, RootState } from './assets';
+import { RootState } from './assets';
 import { createSlice, createSelector } from '@reduxjs/toolkit';
+import {Asset, Pagination} from "../../types";
 
 export const detailAssetSlice = createSlice({
   name: 'searchAssets',
