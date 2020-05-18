@@ -18,7 +18,15 @@ const SiteLayout: React.FC<Props> = props => {
     <div>
       {/* fixme Staged for page-aware header */}
       {browseOrSearch.length > 0 && (
-        <nav css={mq({ display: 'flex', justifyContent: 'space-between' })}>
+        <nav
+          css={theme =>
+            mq({
+              display: 'flex',
+              justifyContent: 'space-between',
+              boxShadow: theme.shadows['lg'],
+              padding: theme.sizes['1'],
+            })
+          }>
           <div
             css={mq({
               display: 'flex',

@@ -48,12 +48,12 @@ const Index: React.FC = props => {
       <div
         key={`page-${id}-${index}`}
         style={style}
-        css={{
+        css={mq({
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'space-evenly',
+          justifyContent: ['start', 'space-evenly', 'space-evenly'],
           flexDirection: 'column',
-        }}>
+        })}>
         {assetsSlice && (
           <div css={{ display: 'flex', width: '100%', flexWrap: 'wrap', justifyContent: 'center' }}>
             {assetsSlice
@@ -62,7 +62,7 @@ const Index: React.FC = props => {
                 (assetItem, i) =>
                   assetItem && (
                     <AssetItem
-                      cssStyles={{ flex: ['0 0 31%', '0 0 16%', '0 0 16%', '0 0 8%'] }}
+                      cssStyles={{ flex: ['0 0 32%', '0 0 16%', '0 0 16%', '0 0 8%'] }}
                       key={`searchAsset-${assetTitleOrName(assetItem)}-${i}`}
                       index={i}
                       asset={assetItem}
@@ -80,7 +80,7 @@ const Index: React.FC = props => {
                 (assetItem, i) =>
                   assetItem && (
                     <AssetItem
-                      cssStyles={{ flex: ['0 0 31%', '0 0 16%', '0 0 16%', '0 0 8%'] }}
+                      cssStyles={{ flex: ['0 0 32%', '0 0 16%', '0 0 16%', '0 0 8%'] }}
                       key={`searchAsset-${assetTitleOrName(assetItem)}-${i}`}
                       index={i}
                       asset={assetItem}
@@ -121,8 +121,8 @@ const Index: React.FC = props => {
                   <FixedSizeList
                     itemCount={pagination.total_pages}
                     onItemsRendered={onItemsRendered}
-                    itemSize={!isSm ? height * 2 : height}
-                    height={!isSm ? height : height}
+                    itemSize={!isSm ? height * 1.5 : height}
+                    height={!isSm ? height * 1.5 : height}
                     ref={e => {
                       setRef(e);
                       return ref;

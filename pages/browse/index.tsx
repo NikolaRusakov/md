@@ -10,15 +10,15 @@ import fetcher from '../../lib/fetcher';
 import { mq } from '../../src/utils/theme';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { wrapper, assetAdded, assetsReceived, Asset } from '../../src/redux/assets';
+import { Asset, assetAdded, assetsReceived, wrapper } from '../../src/redux/assets';
 
 function Browse(props: { carousels: { label: string; data: any }[] }) {
-  // fixme doesn't hydrate store from SSR on Client
   const dispatch = useDispatch();
   useEffect(() => {
     const allAssets = props.carousels.map(({ data }) => data.results).flat(1);
     dispatch(assetsReceived(allAssets));
   }, [props.carousels]);
+
   return (
     <>
       {props?.carousels?.map(({ data, label }, index) => (
@@ -39,7 +39,6 @@ function Browse(props: { carousels: { label: string; data: any }[] }) {
                     paddingTop: '80%',
                   },
                   marginRight: '10px',
-                  // marginRight: typeof window === 'undefined' ? '10px' : null,
                 })}>
                 <Link
                   href={{

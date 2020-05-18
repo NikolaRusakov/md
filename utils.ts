@@ -16,9 +16,9 @@ export const isImage = (src: string | null | undefined): src is string => src !=
 
 export const assetTitleOrName = (asset: Asset) => (asset.title ? asset.title : asset.name ?? '');
 
-
 export const globalNoOverflow = css`
-         body {
-           overflow-y: hidden;
-         }
-       `;
+  body {
+    overflow-y: hidden;
+    margin: 0;
+  }
+`;

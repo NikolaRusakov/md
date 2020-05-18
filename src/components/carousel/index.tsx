@@ -1,7 +1,10 @@
+/** @jsx jsx */
+import { jsx, Global } from '@emotion/core';
 import React, { useState } from 'react';
-import { Global } from '@emotion/core';
 import Swiper from 'react-id-swiper';
 import SwiperInstance from 'swiper';
+import PreviousIcon from '../../../static/svg/previous.svg';
+import NextIcon from '../../../static/svg/next.svg';
 
 type Props = {};
 
@@ -33,8 +36,18 @@ export const Carousel: React.FC<Props> = ({ children }) => {
           {/*// @ts-ignore*/}
           {children}
         </Swiper>
-        <button onClick={goPrev}>Prev</button>
-        <button onClick={goNext}>Next</button>
+        <button css={{ border: 'none', margin: 2 }} onClick={goPrev}>
+          <div>
+            {/*// @ts-ignore*/}
+            <PreviousIcon viewBox="0 -4 6 24" width={36} height={36} />
+          </div>
+        </button>
+        <button css={{ border: 'none', margin: 2 }} onClick={goNext}>
+          <div>
+            {/*// @ts-ignore*/}
+            <NextIcon viewBox="0 -4 6 24" width={36} height={36} />
+          </div>
+        </button>
       </div>
     </>
   );
