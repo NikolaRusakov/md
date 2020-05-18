@@ -29,12 +29,13 @@ const SearchSection: React.FC = props => {
       css={theme =>
         mq({
           width: ['100%', '80%', '80%'],
-          height: ['100%', '7vh', '7vh'],
+          height: ['100%', 'auto', 'auto'],
           backgroundColor: theme.colors.highlight,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           margin: 4,
+          padding: [0, theme.space[3], theme.space[3]],
           border: ['none', '1px solid', '1px solid'],
         })
       }>
