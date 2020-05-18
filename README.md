@@ -39,4 +39,19 @@ now
 now --prod
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/import?filter=next.js&utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+## Tech Stack
+
+| Front-End  | State management | Components   | Styling       | Monitoring | Deployment    |
+| ---------- | ---------------- | ------------ | ------------- | ---------- | ------------- |
+| Typescript | @reduxjs/toolkit | shaka-player | Emotion.js    | Sentry     | now -> Vercel |
+| React      | redux-observable | swiper.js    | styled-system |            |               |
+| Next.js    |                  | react-window |               |            |               |
+
+### Roadmap
+
+- refactor state management away from duck structure
+- make cover image more responsive (on detail page)
+- test epics, some components
+- page transitions
+- fetch detail on video page (for title)
+- introduce search query as query param in router on Search Page
