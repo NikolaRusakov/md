@@ -41,11 +41,11 @@ now --prod
 
 ## Tech Stack
 
-| Front-End  | State management | Components   | Styling       | Monitoring | Deployment    | testing            |
-| ---------- | ---------------- | ------------ | ------------- | ---------- | ------------- | ------------------ |
-| Typescript | @reduxjs/toolkit | shaka-player | Emotion.js    | Sentry     | now -> Vercel | jest               |
-| React      | redux-observable | swiper.js    | styled-system |            |               | jest-marbles       |
-| Next.js    |                  | react-window |               |            |               | react-testing-tool |
+| Front-End  | State management | Components   | Styling       | Monitoring | Deployment    | testing               |
+| ---------- | ---------------- | ------------ | ------------- | ---------- | ------------- | --------------------- |
+| Typescript | @reduxjs/toolkit | shaka-player | Emotion.js    | Sentry     | now -> Vercel | jest                  |
+| React      | redux-observable | swiper.js    | styled-system |            |               | jest-marbles          |
+| Next.js    |                  | react-window |               |            |               | react-testing-library |
 
 ### Roadmap
 
