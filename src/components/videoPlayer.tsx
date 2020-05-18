@@ -55,7 +55,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
       className="video-container"
       css={mq({
         width: '100vw',
-        height: ['50vh', 'calc(100vh - 20px)', 'calc(100vh - 20px)'],
+        height: ['50vh', 'calc(100vh - 48px)', 'calc(100vh - 48px)'],
       })}
       ref={videoContainer}>
       <video
