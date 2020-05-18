@@ -32,8 +32,9 @@ const AssetDetail: React.FC<Asset> = props => {
         <h1
           css={theme =>
             mq({
+              width: '90%',
               fontWeight: theme.fontWeights.bold,
-              fontSize: [theme.fontSizes[5], theme.fontSizes[6], theme.fontSizes[8]],
+              fontSize: [theme.fontSizes[5], theme.fontSizes[5], theme.fontSizes[6]],
             })
           }>
           {assetTitleOrName(props)}
@@ -43,7 +44,7 @@ const AssetDetail: React.FC<Asset> = props => {
             css={theme =>
               mq({
                 maxWidth: ['100%', '100%', '66%'],
-                fontSize: [theme.fontSizes[4], theme.fontSizes[5], theme.fontSizes[6]],
+                fontSize: theme.fontSizes[4],
               })
             }>
             {props.tagline}
@@ -52,7 +53,7 @@ const AssetDetail: React.FC<Asset> = props => {
 
         {props.type && (
           <TopBadge>
-            <Span fontSize={[4, 5, 6]}>{props.type}</Span>
+            <Span fontSize={[3, 3, 4]}>{props.type}</Span>
           </TopBadge>
         )}
 
@@ -98,7 +99,15 @@ const AssetDetail: React.FC<Asset> = props => {
           )}
         </Flex>
 
-        <p css={theme => mq({ fontSize: theme.fontSizes[4], maxWidth: ['90%', '80%', '80%'] })}>{props.overview}</p>
+        <p
+          css={theme =>
+            mq({
+              fontSize: [theme.fontSizes[2], theme.fontSizes[2], theme.fontSizes[3]],
+              maxWidth: ['90%', '80%', '80%'],
+            })
+          }>
+          {props.overview}
+        </p>
 
         {/* solved by https://nextjs.org/docs/api-reference/next/link#if-the-child-is-a-function-component*/}
         <Link
