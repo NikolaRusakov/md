@@ -30,7 +30,7 @@ const Index: React.FC = props => {
   const pagedAssetsSlice = useSelector(searchAssetsRefsSelector);
   const isSm = useMedia(mediaQueries.sm);
 
-  let [listRef, setRef] = useState<FixedSizeList | null>(null);
+  const [listRef, setRef] = useState<FixedSizeList | null>(null);
   useEffect(() => {
     if (listRef != null) {
       listRef.scrollToItem(0);
