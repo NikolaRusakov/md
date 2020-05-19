@@ -100,6 +100,7 @@ const Index: React.FC = props => {
   }
 
   async function loadMoreRows(startIndex: number, stopIndex: number) {
+    // todo handle query failover and add manual refresh functionality / replay request
     return await dispatch(loadNextSearchAssets({ query: searchExp, page: stopIndex }));
   }
 
