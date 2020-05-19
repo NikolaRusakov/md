@@ -8,7 +8,7 @@ import { FixedSizeList } from 'react-window';
 import { Global } from '@emotion/core';
 
 import SearchSection from '../../src/components/searchSection';
-import { assetTitleOrName, globalNoOverflow } from '../../utils';
+import { assetTitleOrName, globalNoOverflow } from '../../src/utils';
 import { loadNextSearchAssets } from '../../src/redux/actions/assets.action';
 import AssetItem from '../../src/components/assetItem';
 import { mediaQueries, mq } from '../../src/utils/theme';

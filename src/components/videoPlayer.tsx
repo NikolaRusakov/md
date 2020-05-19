@@ -3,7 +3,7 @@ import { jsx } from '@emotion/core';
 import React, { useEffect, useRef } from 'react';
 // @ts-ignore
 import shaka from 'shaka-player/dist/shaka-player.ui.js';
-import {mq} from "../utils/theme";
+import { mq } from '../utils/theme';
 
 export interface VideoPlayerProps {
   src: string;

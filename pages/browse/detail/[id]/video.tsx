@@ -7,9 +7,9 @@ import { Global } from '@emotion/core';
 import { useSelector } from 'react-redux';
 import CloseIcon from '../../../../static/svg/close.svg';
 import BackButton from '../../../../src/components/backButton';
-import { assetTitleOrName, globalNoOverflow } from '../../../../utils';
+import { assetTitleOrName, globalNoOverflow } from '../../../../src/utils';
 import { wrapper } from '../../../../src/redux/store';
-import {assetDetail} from "../../../../src/redux/selectors/details.selector";
+import { assetDetail } from '../../../../src/redux/selectors/details.selector';
 
 const VideoPlayer = dynamic(() => import('../../../../src/components/videoPlayer'), { ssr: false });
 

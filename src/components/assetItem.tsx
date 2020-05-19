@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { mq } from '../utils/theme';
-import { assetTitleOrName, imageOrPlaceholder, isImage } from '../../utils';
+import { assetTitleOrName, imageOrPlaceholder, isImage } from '../utils';
 import Link from 'next/link';
 import { Asset } from '../../types';
 

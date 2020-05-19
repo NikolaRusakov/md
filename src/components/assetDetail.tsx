@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { mq } from '../utils/theme';
 import Link from 'next/link';
 import VideoButton from './videoButton';
-import { assetTitleOrName, imageOrPlaceholder } from '../../utils';
+import { assetTitleOrName, imageOrPlaceholder } from '../utils';
 import { Badge, Flex, TopBadge, Span, Pill } from './styled';
 import dayjs from 'dayjs';
 import CalendarIcon from '../../static/svg/calendar.svg';

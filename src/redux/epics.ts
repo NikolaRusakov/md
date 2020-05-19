@@ -5,7 +5,7 @@ import { concatMap, switchMap } from 'rxjs/operators';
 import assetsAction from './actions/assets.action';
 import { Action } from '@reduxjs/toolkit';
 
-import { composeQuery } from '../../utils';
+import { composeQuery } from '../utils';
 import { Asset } from '../../types';
 import { RootState } from './store';
 import { requestedAssetsReceived, requestedNextPageFetched, searchAssetsManyAdded } from './slices/searchAssets';

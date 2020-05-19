@@ -3,16 +3,16 @@ import { jsx } from '@emotion/core';
 
 import { GetServerSideProps } from 'next';
 
-import { assetTitleOrName, composeQuery, imageOrPlaceholder, isImage } from '../../utils';
+import { assetTitleOrName, composeQuery, imageOrPlaceholder, isImage } from '../../src/utils';
 import Carousel from '../../src/components/carousel';
 import Link from 'next/link';
 import fetcher from '../../lib/fetcher';
 import { mq } from '../../src/utils/theme';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { assetAdded, assetsReceived} from '../../src/redux/slices/assets';
+import { assetAdded, assetsReceived } from '../../src/redux/slices/assets';
 import { Asset } from '../../types';
-import {wrapper} from "../../src/redux/store";
+import { wrapper } from '../../src/redux/store';
 
 function Browse(props: { carousels: { label: string; data: any }[] }) {
   const dispatch = useDispatch();

@@ -8,7 +8,7 @@ import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import fetcher from '../../../../lib/fetcher';
 import BackIcon from '../../../../static/svg/back.svg';
-import { composeQuery } from '../../../../utils';
+import { composeQuery } from '../../../../src/utils';
 import AssetDetail from '../../../../src/components/assetDetail';
 
 import BackButton from '../../../../src/components/backButton';

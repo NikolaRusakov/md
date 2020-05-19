@@ -1,6 +1,6 @@
 import getConfig from 'next/config';
 import { css } from '@emotion/core';
-import {Asset} from "./types";
+import { Asset } from '../../types';
 
 const { publicRuntimeConfig } = getConfig();
 export const composeQuery = (path: string = '', params?: string) => {
