@@ -1,8 +1,8 @@
-import {createSlice} from '@reduxjs/toolkit';
-import {Asset} from '../../../types';
+import { createSlice } from '@reduxjs/toolkit';
+import { Asset } from '../../../types';
 
 export const detailAssetSlice = createSlice({
-  name: 'searchAssets',
+  name: 'detailAsset',
   initialState: <Asset>{},
   reducers: {
     setAssetDetail: (state, { payload }: { payload: Asset }) => ({ ...payload }),
@@ -10,4 +10,3 @@ export const detailAssetSlice = createSlice({
 });
 
 export const { setAssetDetail } = detailAssetSlice.actions;
-
