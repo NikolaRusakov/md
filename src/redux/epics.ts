@@ -2,13 +2,15 @@ import { ActionsObservable, combineEpics, Epic, ofType } from 'redux-observable'
 import { Observable, of } from 'rxjs';
 import { concatMap, switchMap } from 'rxjs/operators';
 
-import assetsAction from './assets.action';
-import { requestedAssetsReceived, requestedNextPageFetched, RootState, searchAssetsManyAdded } from './assets';
+import assetsAction from './actions/assets.action';
 import { Action } from '@reduxjs/toolkit';
 
 import { composeQuery } from '../../utils';
 import { Asset } from '../../types';
+import { RootState } from './store';
+import { requestedAssetsReceived, requestedNextPageFetched, searchAssetsManyAdded } from './slices/searchAssets';
 
+//Fixme: infer me and other actions to make typescript happy
 // @ts-ignore
 export const searchAssetsEpic: Epic<
   Action,

@@ -4,18 +4,14 @@ import { jsx } from '@emotion/core';
 import React from 'react';
 import dynamic from 'next/dynamic';
 import { Global } from '@emotion/core';
-import { wrapper } from '../../../../../src/redux/assets';
 import { useSelector } from 'react-redux';
-import CloseIcon from '../../../../../static/svg/close.svg';
-import BackButton from '../../../../../src/components/backButton';
-import { assetTitleOrName, globalNoOverflow } from '../../../../../utils';
-import { assetDetail } from '../../../../../src/redux/details';
+import CloseIcon from '../../../../static/svg/close.svg';
+import BackButton from '../../../../src/components/backButton';
+import { assetTitleOrName, globalNoOverflow } from '../../../../utils';
+import { wrapper } from '../../../../src/redux/store';
+import {assetDetail} from "../../../../src/redux/selectors/details.selector";
 
-const VideoPlayer = dynamic(
-  // @ts-ignore
-  () => import('../../../../../src/components/videoPlayer'),
-  { ssr: false },
-);
+const VideoPlayer = dynamic(() => import('../../../../src/components/videoPlayer'), { ssr: false });
 
 const Index = () => {
   const asset = useSelector(assetDetail);

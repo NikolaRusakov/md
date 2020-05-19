@@ -9,23 +9,23 @@ import { Global } from '@emotion/core';
 
 import SearchSection from '../../src/components/searchSection';
 import { assetTitleOrName, globalNoOverflow } from '../../utils';
-import {
-  searchAssetExpression,
-  searchAssetPagination,
-  selectSearchAssetEntities,
-  wrapper,
-  searchAssetsRefsSelector,
-} from '../../src/redux/assets';
-import { loadNextSearchAssets } from '../../src/redux/assets.action';
+import { loadNextSearchAssets } from '../../src/redux/actions/assets.action';
 import AssetItem from '../../src/components/assetItem';
 import { mediaQueries, mq } from '../../src/utils/theme';
 import { useMedia } from 'react-use';
-import {Asset} from "../../types";
+import { Asset } from '../../types';
+import { wrapper } from '../../src/redux/store';
+import {
+  searchAssetExpressionSelector,
+  searchAssetsRefsSelector,
+  selectSearchAssetEntities,
+  searchAssetPagination,
+} from '../../src/redux/selectors/searchAssets.selector';
 
 const Index: React.FC = props => {
   const searchAssetEntities = useSelector(selectSearchAssetEntities);
   const pagination = useSelector(searchAssetPagination);
-  const searchExp = useSelector(searchAssetExpression);
+  const searchExp = useSelector(searchAssetExpressionSelector);
   const dispatch = useDispatch();
   const pagedAssetsSlice = useSelector(searchAssetsRefsSelector);
   const isSm = useMedia(mediaQueries.sm);

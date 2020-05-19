@@ -4,11 +4,12 @@ import * as React from 'react';
 import { useState, useRef } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 import { useDispatch } from 'react-redux';
-import { fetchAssetsByName } from '../redux/assets.action';
-import { epicMiddleware, wrapper } from '../redux/assets';
+import { fetchAssetsByName } from '../redux/actions/assets.action';
+import { epicMiddleware } from '../redux/store';
 import { rootEpic } from '../redux/epics';
 import { useEffectOnce } from 'react-use';
 import { mq } from '../utils/theme';
+import { wrapper } from '../redux/store';
 
 const SearchSection: React.FC = props => {
   const inputRef = useRef<HTMLInputElement>(null);

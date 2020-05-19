@@ -10,8 +10,9 @@ import fetcher from '../../lib/fetcher';
 import { mq } from '../../src/utils/theme';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { assetAdded, assetsReceived, wrapper } from '../../src/redux/assets';
+import { assetAdded, assetsReceived} from '../../src/redux/slices/assets';
 import { Asset } from '../../types';
+import {wrapper} from "../../src/redux/store";
 
 function Browse(props: { carousels: { label: string; data: any }[] }) {
   const dispatch = useDispatch();

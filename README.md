@@ -41,13 +41,13 @@ now --prod
 
 ## Tech Stack
 
-| Front-End  | State management | Components   | Styling       | Monitoring | Deployment    | testing               |
-| ---------- | ---------------- | ------------ | ------------- | ---------- | ------------- | --------------------- |
-| Typescript | @reduxjs/toolkit | shaka-player | Emotion.js    | Sentry     | now -> Vercel | jest     *             |
-| React      | redux-observable | swiper.js    | styled-system |            |               | jest-marbles       *   |
-| Next.js    |                  | react-window |               |            |               | react-testing-library *|
+| Front-End  | State management | Components   | Styling       | Monitoring | Deployment    | testing                  |
+| ---------- | ---------------- | ------------ | ------------- | ---------- | ------------- | ------------------------ |
+| Typescript | @reduxjs/toolkit | shaka-player | Emotion.js    | Sentry     | now -> Vercel | jest \*                  |
+| React      | redux-observable | swiper.js    | styled-system |            |               | jest-marbles \*          |
+| Next.js    |                  | react-window |               |            |               | react-testing-library \* |
 
-> * needs to be introduced
+> - needs to be introduced
 
 ### Roadmap
 
@@ -57,3 +57,4 @@ now --prod
 - page transitions
 - fetch detail on video page (for title)
 - introduce search query as query param in router on Search Page
+- Generate types based on Swagger file (need to find)

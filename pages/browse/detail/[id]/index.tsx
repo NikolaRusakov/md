@@ -11,9 +11,9 @@ import BackIcon from '../../../../static/svg/back.svg';
 import { composeQuery } from '../../../../utils';
 import AssetDetail from '../../../../src/components/assetDetail';
 
-import { RootState, wrapper } from '../../../../src/redux/assets';
 import BackButton from '../../../../src/components/backButton';
-import { setAssetDetail } from '../../../../src/redux/details';
+import { setAssetDetail } from '../../../../src/redux/slices/details';
+import { wrapper } from '../../../../src/redux/store';
 
 const DetailPage: React.FC<{ initialData: any }> = props => {
   // fixme connect with client store and demonstrate skeleton loading on SSR?
