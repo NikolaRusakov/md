@@ -49,12 +49,12 @@ now --prod
 
 > - needs to be introduced
 
-### Roadmap
+### Roadmap / Nice to Haves
 
-- refactor state management away from duck structure
-- make cover image more responsive (on detail page)
-- test epics, some components
-- page transitions
-- fetch detail on video page (for title)
-- introduce search query as query param in router on Search Page
-- Generate types based on Swagger file (need to find)
+- [x] refactor state management away from duck structure
+- [ ] make cover image more responsive (on detail page)
+- [ ] test epics, some components
+- [ ] page transitions
+- [ ] fetch detail on video page (for title)
+- [ ] introduce search query as query param in router on Search Page
+- [ ] Generate types based on Swagger file (need to find)
