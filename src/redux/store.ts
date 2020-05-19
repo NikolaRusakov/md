@@ -33,6 +33,6 @@ export const makeStore = (preloadedState: any) =>
 
 export const wrapper = createWrapper<RootState>(makeStore, { debug: false });
 
-//fixme types
+//fixme types , research https://github.com/redux-observable/redux-observable/issues/389#issuecomment-535389669
 // @ts-ignore
 epicMiddleware.run(rootEpic);
