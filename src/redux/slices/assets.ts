@@ -1,6 +1,6 @@
-import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
+import { createEntityAdapter, createSlice, EntityAdapter } from '@reduxjs/toolkit';
 import { Asset } from '../../../types';
-
+export type AssetsSlice = EntityAdapter<Asset>;
 export const assetsAdapter = createEntityAdapter<Asset>({
   // Assume IDs are stored in a field other than `asset.id`
   selectId: asset => asset.id,

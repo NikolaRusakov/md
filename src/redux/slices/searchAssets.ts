@@ -1,10 +1,11 @@
-import { assetsAdapter } from './assets';
+import { assetsAdapter, AssetsSlice } from './assets';
 import { ActionsUnion, AssetPageRef, Pagination } from '../../../types';
 import { createSlice } from '@reduxjs/toolkit';
+export type SearchAssetsSlice = Pagination & { exp: string } & { assetPageRefs: AssetPageRef };
 
 export const searchAssetsSlice = createSlice({
   name: 'searchAssets',
-  initialState: assetsAdapter.getInitialState<Pagination & { exp: string } & { assetPageRefs: AssetPageRef }>({
+  initialState: assetsAdapter.getInitialState<SearchAssetsSlice>({
     exp: '',
     page: 0,
     total_pages: 0,
