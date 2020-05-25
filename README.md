@@ -56,6 +56,8 @@ now --prod
 - [ ] make cover image more responsive (on detail page)
 - [ ] test epics, some components
 - [ ] hydrate Redux from SSR to Client
+- [ ] sanitize search expression before calling API [here](https://dev.to/jam3/how-to-prevent-xss-attacks-when-using-dangerouslysetinnerhtml-in-react-1464) 
+- [ ] introduce API erroring in Redux 
 - [ ] page transitions
 - [ ] fetch detail on video page (for title)
 - [ ] introduce search query as query param in router on Search Page
