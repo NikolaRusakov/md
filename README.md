@@ -13,6 +13,7 @@ Deploy the example using [Vercel](https://vercel.com):
 ### Setup
 
 - for local development pass following in [.env](.env)
+- [Uses movie database (TMDb) as back-end](https://www.themoviedb.org/)
 
 ```bash
 MOVIEDB_API_URL="database endpoint"
