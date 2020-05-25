@@ -16,7 +16,7 @@ Deploy the example using [Vercel](https://vercel.com):
 
 ```bash
 MOVIEDB_API_URL="database endpoint"
-MOVIEDB_API_KEY="generated database key"
+MOVIEDB_API_KEY_PARAM="key?='insert your key'"
 ```
 
 ### Running and deployment
