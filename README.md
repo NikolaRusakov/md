@@ -2,6 +2,12 @@
 
 Next.js project that demonstrates improved OTT app with SSR
 
+## Includes
+- browse page with server-side rendered carousels
+- detail page
+- video page
+- search page allowing search including virtual scroll functionality on content scroll
+
 ## Deploy your own
 
 Deploy the example using [Vercel](https://vercel.com):
